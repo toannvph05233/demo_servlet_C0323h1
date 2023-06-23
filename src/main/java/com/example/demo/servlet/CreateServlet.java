@@ -9,36 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet("/createNV")
-public class CreateNhanVienServlet extends HttpServlet {
+public class CreateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        PrintWriter printWriter = resp.getWriter();
-        printWriter.print("<html lang='en'>");
-        printWriter.print("<body>");
-
-        String str = "<form action='/createNV' method='POST'>";
-        str += "<input name='idToan'><br>";
-        str += "<input name='name'><br>";
-        str += "<input name='img'><br>";
-        str += "<button type='submit'>Submit</button>";
-        str += "</form>";
-        printWriter.print(str);
-
-        printWriter.print("</body>");
-        printWriter.print("</html>");
-
+        resp.sendRedirect("/createNV.jsp");
 
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id = Integer.parseInt(req.getParameter("idToan"));
+        int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
         String img = req.getParameter("img");
         ManagerNhanVien.nhanViens.add(new NhanVien(id,name,img));
+
         resp.sendRedirect("/home");
     }
 }
